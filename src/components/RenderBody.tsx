@@ -20,7 +20,7 @@ interface YouTubeValue {
 const components: PortableTextComponents = {
   types: {
     image: ({ value }: { value: ImageValue }) => (
-      <div className="my-6 flex justify-center">
+      <div className="my-6">
         <Image
           src={urlFor(value).url()}
           alt={value.alt || 'Imagen del proceso'}
@@ -45,8 +45,8 @@ const components: PortableTextComponents = {
   },
   marks: {
     // Para las marcas (estilos), el valor contiene las propiedades personalizadas como 'hex'
-    textColor: ({ children, value }: { children: React.ReactNode; value?: { hex: string } }) => (
-      <span style={{ color: value?.hex }}>{children}</span>
+    textColor: ({ children, value }: { children: React.ReactNode; value?: { color: string } }) => (
+      <span style={{ color: value?.color }}>{children}</span>
     ),
     link: ({ children, value }: { children: React.ReactNode; value?: { href: string } }) => (
       <a
@@ -66,9 +66,30 @@ const components: PortableTextComponents = {
     h4: ({ children }) => <h4 className="text-lg font-semibold mt-6 mb-2">{children}</h4>,
     normal: ({ children }) => <p className="mb-4 leading-relaxed">{children}</p>,
   },
+  list: {
+    // Balas para listas no ordenadas
+    bullet: ({ children }) => (
+      <ul className="list-disc ml-8 my-4 space-y-2">
+        {children}
+      </ul>
+    ),
+    // Números para listas ordenadas
+    number: ({ children }) => (
+      <ol className="list-decimal ml-8 my-4 space-y-2">
+        {children}
+      </ol>
+    ),
+  },
+
+  listItem: {
+    // Estilo para cada ítem de la lista
+    bullet: ({ children }) => <li className="pl-1">{children}</li>,
+    number: ({ children }) => <li className="pl-1">{children}</li>,
+  },  
 };
 
 export default function RenderBody({ content }: { content: PortableTextBlock[] }) {
+  console.log('content ================ ',content[2].children)
   return (
     <div className="prose max-w-none">
       <PortableText value={content} components={components} />

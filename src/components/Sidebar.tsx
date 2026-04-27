@@ -15,7 +15,7 @@ interface Content {
 export const Sidebar = ({ content, setInsId, insId }: SidebarProps) => {
 
   return (
-    <aside className="sticky top-0 h-screen p-4 bg-white dark:bg-gray-900">
+    <aside className="sticky top-0 h-screen p-4 bg-gray-100 dark:bg-gray-900">
       <nav aria-label="Lista de Instructivos">
         <ul className="space-y-2"></ul>
           {content.map((item) => (
