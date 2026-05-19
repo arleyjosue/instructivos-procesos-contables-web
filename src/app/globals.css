@@ -3,6 +3,10 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  
+  /* Colores del spinner para el TEMA CLARO */
+  --spinner-base: rgba(0, 0, 0, 0.1); /* Gris oscuro transparente */
+  --spinner-line: #008b9b;           /* Un azul más oscuro para que contraste en fondo blanco */
 }
 
 @theme inline {
@@ -16,6 +20,10 @@
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
+    
+    /* Colores del spinner para el TEMA OSCURO */
+    --spinner-base: rgba(255, 255, 255, 0.1); /* Blanco transparente */
+    --spinner-line: #00f5ff;                  /* El cyan brillante original */
   }
 }
 
@@ -23,4 +31,23 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+.spinner {
+  width: 80px;
+  height: 80px;
+  /* Ahora el spinner lee dinámicamente las variables que cambian con el tema */
+  border: 8px solid var(--spinner-base);
+  border-top: 8px solid var(--spinner-line);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }

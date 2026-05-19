@@ -1,14 +1,21 @@
-import { getInstructivos } from "../services/getInstructivos";
+import { getCategories, getInstructivosByCategory } from "../services/getInstructivos";
 import { ContentPage } from "../components/ContentPage";
 
-export default async  function Home() {
+export default async function Home() {
+  const categorias = await getCategories();
+  
+  // Traemos los instructivos de la primera categoría para que la página no abra vacía
+  const primerCatId = categorias[0]?._id || "";
+  const instructivosIniciales = await getInstructivosByCategory(primerCatId); 
 
-
-  const instructivos = await getInstructivos();
-  console.log(instructivos.map((block) => block.body.map((child) => child.children?.map((grandchild) => grandchild)).join("\n")).join("\n"));
   return (
     <>
-    <ContentPage content={instructivos}/>
+      <ContentPage 
+        initialContent={instructivosIniciales} 
+        categories={categorias} 
+        // Pasamos la acción del servidor como prop directa
+        fetchInstructivosByCat={getInstructivosByCategory} 
+      />
     </>
   );
 }

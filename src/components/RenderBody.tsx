@@ -89,7 +89,7 @@ const components: PortableTextComponents = {
 };
 
 export default function RenderBody({ content }: { content: PortableTextBlock[] }) {
-  console.log('content ================ ',content[2].children)
+  console.log('content ================ ',content?.[2]?.children)
   return (
     <div className="prose max-w-none">
       <PortableText value={content} components={components} />
